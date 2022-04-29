@@ -16,7 +16,6 @@ export const App: FC = () => {
     <div className={styles.main}>
       <h1>Toast w/ Portal</h1>
       <div className={styles.content}>
-        <span className={styles.toast}>breakfast_dining</span>
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -26,24 +25,36 @@ export const App: FC = () => {
             <input
               type="checkbox"
               //value={autoClose}
+              id="autoClose"
               onChange={e => setAutoClose(e.target.checked)}
             />
-            <label>Auto Close</label>
+            <label htmlFor="autoClose">Auto Close</label>
           </div>
 
-          <select value={mode} onChange={e => setMode(e.target.value)}>
-            <option value="info">Info</option>
-            <option value="success">Success</option>
-            <option value="warning">Warning</option>
-            <option value="error">Error</option>
-          </select>
+          <div className={styles.formGroup}>
+            <label htmlFor="typeSelect">Toast Type:</label>
+            <select
+              value={mode}
+              id="typeSelect"
+              onChange={e => setMode(e.target.value)}
+            >
+              <option value="info">Info</option>
+              <option value="success">Success</option>
+              <option value="warning">Warning</option>
+              <option value="error">Error</option>
+            </select>
+          </div>
 
-          <input
-            type="text"
-            value={text}
-            placeholder="Toast Value"
-            onChange={e => setText(e.target.value)}
-          />
+          <div className={styles.formGroup}>
+            <label htmlFor="toastText">Message:</label>
+            <input
+              type="text"
+              value={text}
+              placeholder="Toast Value"
+              id="toastText"
+              onChange={e => setText(e.target.value)}
+            />
+          </div>
 
           <button>Submit</button>
         </form>

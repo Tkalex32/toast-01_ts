@@ -1,25 +1,29 @@
-import { FC, useEffect, useState } from 'react';
-import { uuid } from 'shared';
+import { FC, useState } from 'react';
+import { useToastPortal } from 'hooks';
 import styles from './styles.module.css';
+import { createPortal } from 'react-dom';
+import { Toast } from 'components';
 
 export const ToastPortal: FC = () => {
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [portalId] = useState<string>(`toast-portal-${uuid()}`);
+  const [toasts, setToasts] = useState([
+    { id: 1, message: 'Hello', mode: 'warning' },
+  ]);
+  const { loaded, portalId } = useToastPortal();
 
-  useEffect((): (() => void) => {
-    const div: HTMLDivElement = document.createElement('div');
-    div.id = portalId;
-    div.setAttribute('style', 'position: fixed; top: 10px; right: 10px;');
-    document.getElementsByTagName('body')[0].prepend(div);
-    //document.body.prepend(div);
-
-    setLoaded(true);
-
-    return () => {
-      document.getElementsByTagName('body')[0].removeChild(div);
-      //document.getElementById(portalId)?.remove();
-    };
-  }, [portalId]);
-
-  return <>ToastPortal</>;
+  return loaded
+    ? createPortal(
+        <div className={styles.toastContainer}>
+          {toasts.map(toast => (
+            <div key={toast.id}>
+              <Toast
+                mode={toast.mode}
+                message={toast.message}
+                onClose={() => {}}
+              />
+            </div>
+          ))}
+        </div>,
+        document.getElementById(portalId) as HTMLElement,
+      )
+    : null;
 };
