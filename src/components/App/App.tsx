@@ -3,14 +3,15 @@ import { FC, useRef, useState } from 'react';
 import styles from './styles.module.css';
 
 export const App: FC = () => {
-  // const toastRef = useRef();
+  const toastRef = useRef(null);
   const [text, setText] = useState<string>('');
   const [mode, setMode] = useState<string>('info');
   const [autoClose, setAutoClose] = useState<boolean>(false);
 
-  /* const addToast = () => {
-    toastRef.current.addMessage({ mode, message: text });
-  }; */
+  const addToast = () => {
+    // TODO: solve the TS error.
+    toastRef.current?.addMessage({ mode, message: text });
+  };
 
   return (
     <div className={styles.main}>
@@ -19,6 +20,10 @@ export const App: FC = () => {
         <form
           onSubmit={e => {
             e.preventDefault();
+            if (text) {
+              addToast();
+              setText('');
+            }
           }}
         >
           <div className={styles.autoClose}>
@@ -59,7 +64,7 @@ export const App: FC = () => {
           <button>Submit</button>
         </form>
       </div>
-      <ToastPortal />
+      <ToastPortal ref={toastRef} autoClose={autoClose} />
     </div>
   );
 };

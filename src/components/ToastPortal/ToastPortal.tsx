@@ -1,29 +1,52 @@
-import { FC, useState } from 'react';
+import React, {
+  FC,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import { useToastPortal } from 'hooks';
 import styles from './styles.module.css';
 import { createPortal } from 'react-dom';
 import { Toast } from 'components';
+import { uuid } from 'shared';
 
-export const ToastPortal: FC = () => {
-  const [toasts, setToasts] = useState([
-    { id: 1, message: 'Hello', mode: 'warning' },
-  ]);
-  const { loaded, portalId } = useToastPortal();
+interface ToastPortalProps {
+  autoClose: boolean;
+  autoCloseTime?: number;
+  ref: any; // TODO: set correct type. eg. Ref<HTMLDivElement>;
+}
 
-  return loaded
-    ? createPortal(
-        <div className={styles.toastContainer}>
-          {toasts.map(toast => (
-            <div key={toast.id}>
+export const ToastPortal: FC<ToastPortalProps> = forwardRef(
+  ({ autoClose = false, autoCloseTime = 5000 }, ref) => {
+    const [toasts, setToasts] = useState<IToast[]>([
+      { id: '1', message: 'Hello', mode: 'info' },
+    ]);
+    const { loaded, portalId } = useToastPortal();
+
+    const removeToast = (id: string): void => {
+      setToasts(toasts.filter(toast => toast.id !== id));
+    };
+
+    useImperativeHandle(ref, () => ({
+      addMessage(toast: IToast) {
+        setToasts([...toasts, { ...toast, id: uuid() }]);
+      },
+    }));
+
+    return loaded
+      ? createPortal(
+          <div className={styles.toastContainer}>
+            {toasts.map(toast => (
               <Toast
+                key={toast.id}
                 mode={toast.mode}
                 message={toast.message}
-                onClose={() => {}}
+                onClose={() => removeToast(toast.id)}
               />
-            </div>
-          ))}
-        </div>,
-        document.getElementById(portalId) as HTMLElement,
-      )
-    : null;
-};
+            ))}
+          </div>,
+          document.getElementById(portalId) as HTMLElement,
+        )
+      : null;
+  },
+);

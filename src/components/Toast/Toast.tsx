@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import styles from './styles.module.css';
 
 interface ToastProps {
@@ -8,7 +8,10 @@ interface ToastProps {
 }
 
 export const Toast: FC<ToastProps> = ({ mode, onClose, message }) => {
-  const classes: string = [styles.toast, styles[mode]].join(' ');
+  const classes: string = useMemo(
+    () => [styles.toast, styles[mode]].join(' '),
+    [mode],
+  );
   const icon: string =
     mode === 'error'
       ? 'dangerous'
