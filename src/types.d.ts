@@ -1,7 +1,5 @@
 interface IToast {
-  id: string;
+  id?: string;
   message: string;
-  mode: ToastType;
+  mode: string;
 }
-
-type ToastType = 'success' | 'error' | 'info' | 'warning';

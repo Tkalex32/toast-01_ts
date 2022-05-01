@@ -1,27 +1,36 @@
-import React, {
-  FC,
+import {
+  ForwardedRef,
   forwardRef,
   useImperativeHandle,
   useState,
 } from 'react';
-import { useToastPortal } from 'hooks';
+import { useToastAutoClose, useToastPortal } from 'hooks';
 import styles from './styles.module.css';
 import { createPortal } from 'react-dom';
 import { Toast } from 'components';
 import { uuid } from 'shared';
 
+export type ToastHandle = {
+  addMessage: (toast: IToast) => void;
+};
+
 interface ToastPortalProps {
   autoClose: boolean;
   autoCloseTime?: number;
-  ref: any; // TODO: set correct type. eg. Ref<HTMLDivElement>;
+  ref: ForwardedRef<ToastHandle>;
 }
 
-export const ToastPortal: FC<ToastPortalProps> = forwardRef(
+export const ToastPortal = forwardRef<ToastHandle, ToastPortalProps>(
   ({ autoClose = false, autoCloseTime = 5000 }, ref) => {
-    const [toasts, setToasts] = useState<IToast[]>([
-      { id: '1', message: 'Hello', mode: 'info' },
-    ]);
+    const [toasts, setToasts] = useState<IToast[]>([]);
     const { loaded, portalId } = useToastPortal();
+
+    useToastAutoClose({
+      toasts,
+      setToasts,
+      autoClose,
+      autoCloseTime,
+    });
 
     const removeToast = (id: string): void => {
       setToasts(toasts.filter(toast => toast.id !== id));
@@ -41,7 +50,7 @@ export const ToastPortal: FC<ToastPortalProps> = forwardRef(
                 key={toast.id}
                 mode={toast.mode}
                 message={toast.message}
-                onClose={() => removeToast(toast.id)}
+                onClose={() => removeToast(toast.id as string)}
               />
             ))}
           </div>,

@@ -1,15 +1,14 @@
-import { ToastPortal } from 'components';
+import { ToastPortal, ToastHandle } from 'components';
 import { FC, useRef, useState } from 'react';
 import styles from './styles.module.css';
 
 export const App: FC = () => {
-  const toastRef = useRef(null);
+  const toastRef = useRef<ToastHandle>(null);
   const [text, setText] = useState<string>('');
   const [mode, setMode] = useState<string>('info');
   const [autoClose, setAutoClose] = useState<boolean>(false);
 
   const addToast = () => {
-    // TODO: solve the TS error.
     toastRef.current?.addMessage({ mode, message: text });
   };
 
@@ -29,7 +28,7 @@ export const App: FC = () => {
           <div className={styles.autoClose}>
             <input
               type="checkbox"
-              //value={autoClose}
+              value={autoClose ? 'true' : 'false'}
               id="autoClose"
               onChange={e => setAutoClose(e.target.checked)}
             />
