@@ -6,6 +6,7 @@ export const App: FC = () => {
   const toastRef = useRef<ToastHandle>(null);
   const [text, setText] = useState<string>('');
   const [mode, setMode] = useState<string>('info');
+  const [position, setPosition] = useState('top-right');
   const [autoClose, setAutoClose] = useState<boolean>(false);
 
   const addToast = () => {
@@ -36,6 +37,20 @@ export const App: FC = () => {
           </div>
 
           <div className={styles.formGroup}>
+            <label htmlFor="positionSelect">Position:</label>
+            <select
+              value={position}
+              id="positionSelect"
+              onChange={e => setPosition(e.target.value)}
+            >
+              <option value="top-left">top-left</option>
+              <option value="top-right">top-right</option>
+              <option value="bottom-left">bottom-left</option>
+              <option value="bottom-right">bottom-right</option>
+            </select>
+          </div>
+
+          <div className={styles.formGroup}>
             <label htmlFor="typeSelect">Toast Type:</label>
             <select
               value={mode}
@@ -63,7 +78,11 @@ export const App: FC = () => {
           <button>Submit</button>
         </form>
       </div>
-      <ToastPortal ref={toastRef} autoClose={autoClose} />
+      <ToastPortal
+        ref={toastRef}
+        autoClose={autoClose}
+        position={position}
+      />
     </div>
   );
 };

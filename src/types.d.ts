@@ -3,3 +3,5 @@ interface IToast {
   message: string;
   mode: string;
 }
+
+type Position = 'top' | 'bottom' | 'left' | 'right';

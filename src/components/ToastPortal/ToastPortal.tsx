@@ -17,13 +17,14 @@ export type ToastHandle = {
 interface ToastPortalProps {
   autoClose: boolean;
   autoCloseTime?: number;
+  position: string;
   ref: ForwardedRef<ToastHandle>;
 }
 
 export const ToastPortal = forwardRef<ToastHandle, ToastPortalProps>(
-  ({ autoClose = false, autoCloseTime = 5000 }, ref) => {
+  ({ autoClose = false, autoCloseTime = 5000, position }, ref) => {
     const [toasts, setToasts] = useState<IToast[]>([]);
-    const { loaded, portalId } = useToastPortal();
+    const { loaded, portalId } = useToastPortal(position);
 
     useToastAutoClose({
       toasts,
