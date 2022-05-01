@@ -52,6 +52,7 @@ export const ToastPortal = forwardRef<ToastHandle, ToastPortalProps>(
                 mode={toast.mode}
                 message={toast.message}
                 onClose={() => removeToast(toast.id as string)}
+                autoClose={autoClose}
               />
             ))}
           </div>,
