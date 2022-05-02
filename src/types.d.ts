@@ -5,4 +5,7 @@ interface IToast {
   autoClose?: boolean;
 }
 
-type Position = { [key: string]: any };
+type Position = {
+  position: string;
+  text: string;
+};

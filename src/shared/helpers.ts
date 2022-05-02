@@ -13,5 +13,5 @@ export const uuid: Function = (): string => {
   );
 };
 
-export const setPosition: Function = (position: string): Position[] =>
+export const setPosition: Function = (position: string): string =>
   positions.filter((p: Position) => p.position === position)[0].text;
