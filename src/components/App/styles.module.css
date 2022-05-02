@@ -50,7 +50,7 @@
   outline: none;
   border-radius: 5px;
   box-sizing: border-box;
-  box-shadow: 0px 0px 3px #402d2181;
+  box-shadow: inset 0px 2px 3px #402d2181;
 }
 
 .content form button {
@@ -63,8 +63,12 @@
   color: #fff;
   border-radius: 5px;
   background-color: #4569a7ca;
-  box-shadow: 0px 0px 3px #402d2181;
   margin-top: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.content form button:hover {
+  box-shadow: 0px 3px 8px #402d2181;
 }
 
 .content form label {
@@ -75,4 +79,10 @@
   gap: 6px;
   display: flex;
   align-items: center;
+}
+
+.position {
+  color: #4569a7ca;
+  font-weight: 600;
+  text-transform: capitalize;
 }

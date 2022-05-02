@@ -1,0 +1,36 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+  width: max-content;
+  margin: 0 auto;
+  gap: 0 3px;
+}
+
+.north_west,
+.north,
+.north_east,
+.south_west,
+.south,
+.south_east {
+  font-family: 'Material Symbols Outlined';
+  font-weight: 500;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  border: 1px solid #4569a7ca;
+}

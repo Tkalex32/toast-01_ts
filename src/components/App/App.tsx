@@ -1,13 +1,20 @@
-import { ToastPortal, ToastHandle } from 'components';
-import { FC, useRef, useState } from 'react';
+import { ToastPortal, ToastHandle, PositionSwitcher } from 'components';
+import { ChangeEventHandler, FC, useRef, useState } from 'react';
 import styles from './styles.module.css';
 
 export const App: FC = () => {
   const toastRef = useRef<ToastHandle>(null);
   const [text, setText] = useState<string>('');
   const [mode, setMode] = useState<string>('info');
-  const [position, setPosition] = useState('top-right');
+  const [selectedOption, setSelectedOption] =
+    useState<string>('top-right');
   const [autoClose, setAutoClose] = useState<boolean>(false);
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
+    console.log(event.currentTarget.value);
+
+    setSelectedOption(event.currentTarget.value);
+  };
 
   const addToast = () => {
     toastRef.current?.addMessage({ mode, message: text });
@@ -37,17 +44,16 @@ export const App: FC = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="positionSelect">Position:</label>
-            <select
-              value={position}
-              id="positionSelect"
-              onChange={e => setPosition(e.target.value)}
-            >
-              <option value="top-left">top-left</option>
-              <option value="top-right">top-right</option>
-              <option value="bottom-left">bottom-left</option>
-              <option value="bottom-right">bottom-right</option>
-            </select>
+            <label htmlFor="positionSelect">
+              Position:{' '}
+              <span className={styles.position}>
+                {selectedOption.replace(/-/, ' ')}
+              </span>
+            </label>
+            <PositionSwitcher
+              selectedOption={selectedOption}
+              handleChange={handleChange}
+            />
           </div>
 
           <div className={styles.formGroup}>
@@ -81,7 +87,7 @@ export const App: FC = () => {
       <ToastPortal
         ref={toastRef}
         autoClose={autoClose}
-        position={position}
+        position={selectedOption}
       />
     </div>
   );
