@@ -24,10 +24,7 @@ export const useToastPortal: (position: string) => {
 
   useEffect((): void => {
     const div = document.getElementsByTagName('div')[0];
-    div.setAttribute(
-      'style',
-      `position: fixed; ${toastsPosition[0]}: 10px; ${toastsPosition[1]}: 10px;`,
-    );
+    div.setAttribute('style', `position: fixed; ${toastsPosition}`);
   }, [toastsPosition]);
 
   return { loaded, portalId };

@@ -1,3 +1,5 @@
+import { positions } from 'shared';
+
 export const uuid: Function = (): string => {
   let dt = new Date().getTime();
 
@@ -11,17 +13,5 @@ export const uuid: Function = (): string => {
   );
 };
 
-export const setPosition: Function = (position: string): Position[] => {
-  switch (position) {
-    case 'top-right':
-      return ['top', 'right'];
-    case 'top-left':
-      return ['top', 'left'];
-    case 'bottom-right':
-      return ['bottom', 'right'];
-    case 'bottom-left':
-      return ['bottom', 'left'];
-    default:
-      return ['top', 'right'];
-  }
-};
+export const setPosition: Function = (position: string): Position[] =>
+  positions.filter((p: Position) => p.position === position)[0].text;

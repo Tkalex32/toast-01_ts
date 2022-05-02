@@ -11,8 +11,6 @@ export const App: FC = () => {
   const [autoClose, setAutoClose] = useState<boolean>(false);
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = event => {
-    console.log(event.currentTarget.value);
-
     setSelectedOption(event.currentTarget.value);
   };
 

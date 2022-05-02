@@ -17,8 +17,6 @@ const Switcher: FC<SwitcherProps> = ({
   name,
   value,
 }) => {
-  console.log('Switcher');
-
   return (
     <div>
       <label htmlFor={name}>
@@ -49,7 +47,12 @@ export const PositionSwitcher: FC<PositionSwitcherProps> = ({
           name="north_west"
           value="top-left"
         />
-
+        <Switcher
+          selectedOption={selectedOption}
+          handleChange={handleChange}
+          name="north"
+          value="top-center"
+        />
         <Switcher
           selectedOption={selectedOption}
           handleChange={handleChange}
@@ -62,7 +65,12 @@ export const PositionSwitcher: FC<PositionSwitcherProps> = ({
           name="south_west"
           value="bottom-left"
         />
-
+        <Switcher
+          selectedOption={selectedOption}
+          handleChange={handleChange}
+          name="south"
+          value="bottom-center"
+        />
         <Switcher
           selectedOption={selectedOption}
           handleChange={handleChange}

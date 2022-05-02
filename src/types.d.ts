@@ -5,4 +5,4 @@ interface IToast {
   autoClose?: boolean;
 }
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
+type Position = { [key: string]: any };
