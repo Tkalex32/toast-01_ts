@@ -15,7 +15,8 @@ export const App: FC = () => {
   };
 
   const addToast = () => {
-    toastRef.current?.addMessage({ mode, message: text });
+    const toastText = text !== '' ? text.trim() : 'Toast Message';
+    toastRef.current?.addMessage({ mode, message: toastText });
   };
 
   return (
@@ -25,10 +26,8 @@ export const App: FC = () => {
         <form
           onSubmit={e => {
             e.preventDefault();
-            if (text) {
-              addToast();
-              setText('');
-            }
+            addToast();
+            setText('');
           }}
         >
           <div className={styles.autoClose}>
