@@ -1,4 +1,4 @@
-import { ToastPortal, ToastHandle, PositionSwitcher } from 'components';
+import { ToastPortal, ToastHandle, PositionSwitcher } from '@/components';
 import { ChangeEventHandler, FC, useRef, useState } from 'react';
 import styles from './styles.module.css';
 

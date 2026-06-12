@@ -4,11 +4,11 @@ import {
   useImperativeHandle,
   useState,
 } from 'react';
-import { useToastAutoClose, useToastPortal } from 'hooks';
+import { useToastAutoClose, useToastPortal } from '@/hooks';
 import styles from './styles.module.css';
 import { createPortal } from 'react-dom';
-import { Toast } from 'components';
-import { uuid } from 'shared';
+import { Toast } from '@/components';
+import { uuid } from '@/shared';
 
 export type ToastHandle = {
   addMessage: (toast: IToast) => void;

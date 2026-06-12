@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { uuid, setPosition } from 'shared';
+import { uuid, setPosition } from '@/shared';
 
 export const useToastPortal: (position: string) => {
   loaded: boolean;
